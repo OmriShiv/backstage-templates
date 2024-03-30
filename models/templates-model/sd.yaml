@@ -2,7 +2,7 @@ apiVersion: ray.io/v1
 kind: RayService
 metadata:
   name: stable-diffusion
-  namespace: default
+  namespace: "${{values.namespace}}"
 spec:
   deploymentUnhealthySecondThreshold: 300
   rayClusterConfig:
