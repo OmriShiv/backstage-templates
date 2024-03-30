@@ -67,7 +67,7 @@ spec:
       name: Fetch Base
       action: fetch:template
       input:
-        url: ./models/
+        url: ./models/templates-model
         values:
           namespace: ${{parameters.model.type}}
     - id: apply-model
