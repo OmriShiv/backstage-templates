@@ -24,3 +24,32 @@ spec:
           description: The cluster to run this job in.
           type: string
           ui:field: KubernetesClusterPicker
+  steps:
+    - id: fetch-base
+      name: Fetch Base
+      action: fetch:template
+      input:
+        url: ./templates-sa/
+        values:
+          namespace: ${{ parameters.namespace }}
+    - id: apply-sa
+      name: apply sa
+      action: cnoe:kubernetes:apply
+      input:
+        manifestPath: sa.yaml
+        namespaced: true
+        clusterName: ${{ parameters.clusterName }}
+    - id: apply-role
+      name: apply role
+      action: cnoe:kubernetes:apply
+      input:
+        manifestPath: role.yaml
+        namespaced: true
+        clusterName: ${{ parameters.clusterName }}
+    - id: apply-role-binding
+      name: apply role binding
+      action: cnoe:kubernetes:apply
+      input:
+        manifestPath: rolebinding.yaml
+        namespaced: true
+        clusterName: ${{ parameters.clusterName }}
