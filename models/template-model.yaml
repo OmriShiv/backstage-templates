@@ -1,3 +1,9 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: deploy-ml-model
+  title: Deploy ML Model
+  description: Deploys an ML model
 # Edit the template parameters below to see how they will render in the scaffolder form UI
 parameters:
   - title: ML Model
