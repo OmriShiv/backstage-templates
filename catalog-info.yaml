@@ -5,4 +5,4 @@ metadata:
   description: A public collection of Backstage templates
 spec:
   targets:
-    - ./models/templates-model.yaml
+    - ./models/template-model.yaml
