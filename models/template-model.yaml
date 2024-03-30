@@ -1,0 +1,70 @@
+# Edit the template parameters below to see how they will render in the scaffolder form UI
+parameters:
+  - title: ML Model
+    properties:
+      model:
+        title: Which model would you like to deploy?
+        type: string
+        description: Model name
+        default: sd
+        enum:
+          - sd
+          - llama2-7b
+  - title: Autoscaling setup
+    properties:
+      min_replicas:
+        title: How many minimum replicas would you like
+        type: number
+        description: Minimum replicas
+        default: 1
+      max_replicas:
+        title: How many maximum replicas would you like
+        type: number
+        description: Maximum replicas
+        default: 1
+      starting_replicas:
+        title: How many replicas to start with
+        type: number
+        description: Starting replicas
+        default: 1
+  - title: Configuration Options
+    properties:
+      name:
+        title: name of this entry
+        type: string
+      namespace:
+        title: namespace within the kubernetes cluster to deploy this
+        type: string
+        default: default
+      adminRoleName: # update the aws-config cm to give admin access to this group.
+        title: Admin Role Name
+        description: Name of the role to give the administrative rights on the EKS cluster.
+        default: Admin
+        type: string
+      clusterName:
+        title: Cluster to run
+        description: The cluster to run this workflow in.
+        type: string
+        ui:field: KubernetesClusterPicker
+      repoUrl: # need a place to store this entity information.
+        title: Repository Location
+        type: string
+        ui:field: RepoUrlPicker
+        ui:options:
+          allowedHosts:
+            - github.com
+steps:
+  - id: fetch-base
+    name: Fetch Base
+    action: fetch:template
+    input:
+      url: ./models/
+      values:
+        namespace: ${{parameters.model.type}}
+  - id: apply-model
+    name: Start TF workflow
+    action: cnoe:kubernetes:apply
+    input:
+      manifestPath: ${{parameters.model}}.yaml
+      namespaced: true
+      clusterName: ${{ parameters.clusterName }}

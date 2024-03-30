@@ -1,0 +1,83 @@
+apiVersion: ray.io/v1
+kind: RayService
+metadata:
+  name: stable-diffusion
+  namespace: default
+spec:
+  deploymentUnhealthySecondThreshold: 300
+  rayClusterConfig:
+    enableInTreeAutoscaling: true
+    headGroupSpec:
+      headService:
+        metadata:
+          name: sd
+      rayStartParams:
+        dashboard-host: 0.0.0.0
+      template:
+        spec:
+          containers:
+            - image: rayproject/ray-ml:2.7.0
+              name: ray-head
+              ports:
+                - containerPort: 6379
+                  name: gcs
+                  protocol: TCP
+                - containerPort: 8265
+                  name: dashboard
+                  protocol: TCP
+                - containerPort: 10001
+                  name: client
+                  protocol: TCP
+                - containerPort: 8000
+                  name: serve
+                  protocol: TCP
+              resources:
+                limits:
+                  cpu: '1'
+                  memory: 6G
+                requests:
+                  cpu: '1'
+                  memory: 6G
+              volumeMounts:
+                - mountPath: /tmp/ray
+                  name: ray-logs
+          volumes:
+            - emptyDir: {}
+              name: ray-logs
+    rayVersion: 2.7.0
+    workerGroupSpecs:
+      - groupName: gpu-group
+        maxReplicas: 10
+        minReplicas: 0
+        numOfHosts: 1
+        rayStartParams: {}
+        replicas: 1
+        template:
+          spec:
+            containers:
+              - image: rayproject/ray-ml:2.7.0
+                name: ray-worker
+                resources:
+                  limits:
+                    cpu: 3
+                    nvidia.com/gpu: 1
+                  requests:
+                    cpu: 3
+                    nvidia.com/gpu: 1
+            tolerations:
+              - effect: NoSchedule
+                key: ray.io/node-type
+                operator: Equal
+                value: worker
+              - effect: NoSchedule
+                key: nvidia.com/gpu
+                operator: Equal
+                value: v100
+  serveConfigV2: |
+    applications:
+      - name: stable_diffusion
+        import_path: stable_diffusion.stable_diffusion:entrypoint
+        runtime_env:
+          working_dir: "https://github.com/ray-project/serve_config_examples/archive/d6acf9b99ef076a1848f506670e1290a11654ec2.zip"
+          pip: ["diffusers==0.12.1"]
+  serviceUnhealthySecondThreshold: 900
