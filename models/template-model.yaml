@@ -63,6 +63,11 @@ spec:
             allowedHosts:
               - github.com
   steps:
+    - id: create-repo
+      name: Create Repository
+      action: github:repo:create
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
     - id: fetch-base
       name: Fetch Base
       action: fetch:template
@@ -70,6 +75,30 @@ spec:
         url: ./templates-model/
         values:
           namespace: ${{parameters.namespace}}
+    - id: init-repo
+      name: Initialize Repository
+      action: github:repo:push
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        defaultBranch: main
+    - id: wait
+      name: Waiting for the repo to be ready
+      action: "roadiehq:utils:sleep"
+      input:
+        amount: 5
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: This is ${{ parameters.name }}
+        repoUrl: ${{ parameters.repoUrl }}
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps['init-repo'].output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
     - id: apply-model
       name: Start TF workflow
       action: cnoe:kubernetes:apply
@@ -77,3 +106,8 @@ spec:
         manifestPath: ${{parameters.model}}.yaml
         namespaced: true
         clusterName: ${{ parameters.clusterName }}
+  output:
+    links:
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps['register'].output.entityRef }}
