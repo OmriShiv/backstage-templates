@@ -1,7 +1,7 @@
 apiVersion: ray.io/v1
 kind: RayService
 metadata:
-  name: stable-diffusion
+  name: "${{values.name}}"
   namespace: "${{values.namespace}}"
 spec:
   deploymentUnhealthySecondThreshold: 300
@@ -10,13 +10,22 @@ spec:
     headGroupSpec:
       headService:
         metadata:
-          name: sd
+          name: "${{values.name}}"
+          namespace: "${{values.namespace}}"
       rayStartParams:
         dashboard-host: 0.0.0.0
       template:
         spec:
           containers:
-            - image: rayproject/ray-ml:2.7.0
+            - env:
+                - name: RAY_GRAFANA_HOST
+                  value: http://prometheus-grafana.monitoring.svc.cluster.local
+                - name: RAY_PROMETHEUS_HOST
+                  value: >-
+                    http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
+                - name: RAY_GRAFANA_IFRAME_HOST
+                  value: https://grafana.arcadeai.site
+              image: rayproject/ray-ml:2.7.0
               name: ray-head
               ports:
                 - containerPort: 6379
@@ -47,11 +56,11 @@ spec:
     rayVersion: 2.7.0
     workerGroupSpecs:
       - groupName: gpu-group
-        maxReplicas: 10
-        minReplicas: 0
+        maxReplicas: ${{values.max_replicas}}
+        minReplicas: ${{values.min_replicas}}
         numOfHosts: 1
         rayStartParams: {}
-        replicas: 1
+        replicas: ${{values.starting_replicas}}
         template:
           spec:
             containers:
