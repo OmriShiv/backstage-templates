@@ -82,7 +82,7 @@ spec:
         namespaced: true
         clusterName: ${{ parameters.clusterName }}
     - id: apply-ingress
-      name: Start TF workflow
+      name: Creating Ingress
       action: cnoe:kubernetes:apply
       input:
         manifestPath: ingress.yaml

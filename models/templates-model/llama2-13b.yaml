@@ -63,11 +63,11 @@ spec:
     rayVersion: 2.7.1
     workerGroupSpecs:
       - groupName: inf2-worker-group
-        maxReplicas: "${{values.max_replicas}}"
-        minReplicas: "${{values.min_replicas}}"
+        maxReplicas: ${{values.max_replicas}}
+        minReplicas: ${{values.min_replicas}}
         numOfHosts: 1
         rayStartParams: {}
-        replicas: "${{values.starting_replicas}}"
+        replicas: ${{values.starting_replicas}}
         template:
           spec:
             containers:
