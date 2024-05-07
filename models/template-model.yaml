@@ -18,7 +18,7 @@ spec:
           default: sd
           enum:
             - sd
-            - llama2-7b
+            - llama2-13b
     - title: Autoscaling setup
       properties:
         min_replicas:
@@ -69,7 +69,11 @@ spec:
       input:
         url: ./templates-model/
         values:
+          name: ${{parameters.name}}
           namespace: ${{parameters.namespace}}
+          max_replicas: ${{parameters.max_replicas}}
+          min_replicas: ${{parameters.min_replicas}}
+          starting_replicas: ${{parameters.starting_replicas}}
     - id: apply-model
       name: Start TF workflow
       action: cnoe:kubernetes:apply
