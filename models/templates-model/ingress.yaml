@@ -24,6 +24,6 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: "${{values.namespace}}"
+                name: "${{values.name}}"
                 port:
                   number: 8000
