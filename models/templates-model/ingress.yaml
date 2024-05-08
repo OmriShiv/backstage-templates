@@ -10,10 +10,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - "${{values.namespace}}-${{values.name}}.arcadeai.site"
+        - "${{values.name}}-${{values.namespace}}.arcadeai.site"
       secretName: "${{values.name}}-cert"
   rules:
-    - host: "${{values.namespace}}-${{values.name}}.arcadeai.site"
+    - host: "${{values.name}}-${{values.namespace}}.arcadeai.site"
       http:
         paths:
           - path: /(.*)
