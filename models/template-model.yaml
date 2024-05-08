@@ -74,6 +74,13 @@ spec:
           max_replicas: ${{parameters.max_replicas}}
           min_replicas: ${{parameters.min_replicas}}
           starting_replicas: ${{parameters.starting_replicas}}
+    - id: publish
+      name: Publish
+      action: publish:github:push
+      input:
+        branch: master
+        targetPath: ${{parameters.namespace}}/${{parameters.name}}
+        repoUrl: ${{ parameters.repoUrl }}
     - id: apply-model
       name: Start TF workflow
       action: cnoe:kubernetes:apply
