@@ -78,7 +78,7 @@ spec:
       name: Publish
       action: github:repo:push
       input:
-        branchName: ${{parameters.namespace}}/${{parameters.name}}
+        defaultBranch: ${{parameters.namespace}}/${{parameters.name}}
         targetPath: ${{parameters.namespace}}/${{parameters.name}}
         repoUrl: ${{ parameters.repoUrl }}
     - id: apply-model
