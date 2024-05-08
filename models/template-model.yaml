@@ -96,7 +96,7 @@ spec:
       action: catalog:register
       input:
         repoContentsUrl: ${{ steps['init-repo'].output.repoContentsUrl }}
-        catalogInfoPath: '/catalog-info.yaml'
+        catalogInfoPath: "./${{parameters.name}}/catalog-info.yaml"
     - id: apply-model
       name: Start TF workflow
       action: cnoe:kubernetes:apply
