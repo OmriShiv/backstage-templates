@@ -60,7 +60,7 @@ spec:
       name: Create Repository
       action: github:repo:create
       input:
-        repoUrl: ${{ parameters.repoUrl }}
+        repoUrl: 'github.com?owner=omrishiv-cnoe-test&repo=${{parameters.namespace}}-${{parameters.name}}'
     - id: fetch-base
       name: Fetch Base
       action: fetch:template
