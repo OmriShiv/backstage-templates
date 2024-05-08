@@ -55,17 +55,6 @@ spec:
           description: The cluster to run this workflow in.
           type: string
           ui:field: KubernetesClusterPicker
-        repoUrl: # need a place to store this entity information.
-          title: Repository Location
-          type: string
-          ui:field: RepoUrlPicker
-          ui:options:
-            allowedHosts:
-              - github.com
-            allowedOwners:
-              - omrishiv-cnoe-test
-            allowedRepos:
-              - "${{parameters.namespace}}-${{parameters.name}}"
   steps:
     - id: create-repo
       name: Create Repository
@@ -88,7 +77,7 @@ spec:
       action: github:repo:push
       input:
         defaultBranch: main
-        repoUrl: ${{ parameters.repoUrl }}
+        repoUrl: "github.com?owner=omrishiv-cnoe-test&repo=${{parameters.namespace}}-${{parameters.name}}"
     - id: wait
       name: Waiting for the repo to be ready
       action: "roadiehq:utils:sleep"
