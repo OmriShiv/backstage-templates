@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+  name: "${{values.name}}"
+  namespace: "${{values.namespace}}"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - "${{values.name}}-${{values.namespace}}.arcadeai.site"
+      secretName: "${{values.name}}-cert"
+  rules:
+    - host: "${{values.name}}-${{values.namespace}}.arcadeai.site"
+      http:
+        paths:
+          - path: /(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: "${{values.name}}"
+                port:
+                  number: 8265
+          - path: /serve/(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: "${{values.name}}"
+                port:
+                  number: 8000
