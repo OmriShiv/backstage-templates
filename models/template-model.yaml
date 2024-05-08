@@ -76,9 +76,9 @@ spec:
           starting_replicas: ${{parameters.starting_replicas}}
     - id: publish
       name: Publish
-      action: publish:github:push
+      action: github:repo:push
       input:
-        branch: master
+        branch: main
         targetPath: ${{parameters.namespace}}/${{parameters.name}}
         repoUrl: ${{ parameters.repoUrl }}
     - id: apply-model
