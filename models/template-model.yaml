@@ -62,6 +62,10 @@ spec:
           ui:options:
             allowedHosts:
               - github.com
+            allowedOwners:
+              - omrishiv-cnoe-test
+            allowedRepos:
+              - "${{parameters.namespace}}-${{parameters.name}}"
   steps:
     - id: create-repo
       name: Create Repository
@@ -95,7 +99,7 @@ spec:
       action: catalog:register
       input:
         repoContentsUrl: ${{ steps['init-repo'].output.repoContentsUrl }}
-        catalogInfoPath: "./${{parameters.name}}/catalog-info.yaml"
+        catalogInfoPath: "catalog-info.yaml"
     - id: apply-model
       name: Start TF workflow
       action: cnoe:kubernetes:apply
