@@ -12,7 +12,27 @@ metadata:
     - url: 'https://github.com?owner=omrishiv-cnoe-test&repo=${{values.namespace}}-${{values.name}}'
       title: Repo URL
       icon: github
+    - url:  'https://${{values.name}}-${{values.namespace}}.arcadeai.site/'
+      title: Ray Dashboard
+      icon: dashboard
+    - url:  'https://grafana.arcadeai.site/d/2LaqbJ0Zk/kubecost?orgId=1var-namespace=${{values.namespace}}&var-app=${{values.name}}-${{values.namespace}}'
+      title: Cost Dashboard
+      icon: dashboard
 spec:
   owner: guest
   lifecycle: experimental
   type: service
+  providesApis:
+    - "${{values.name}}-${{values.namespace}}"
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: "${{values.name}}-${{values.namespace}}"
+  description: The Stable Diffusion API
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: guest
+  definition:
+    $text: ./sd.oas.yaml

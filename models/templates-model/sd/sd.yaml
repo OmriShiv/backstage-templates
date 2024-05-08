@@ -1,7 +1,7 @@
 apiVersion: ray.io/v1
 kind: RayService
 metadata:
-  name: "${{values.name}}"
+  name: "${{values.name}}-${{values.namespace}}"
   namespace: "${{values.namespace}}"
 spec:
   deploymentUnhealthySecondThreshold: 300
@@ -15,6 +15,9 @@ spec:
       rayStartParams:
         dashboard-host: 0.0.0.0
       template:
+        metadata:
+          labels:
+            app: "${{values.name}}-${{values.namespace}}"
         spec:
           containers:
             - env:
@@ -62,6 +65,9 @@ spec:
         rayStartParams: {}
         replicas: ${{values.starting_replicas}}
         template:
+          metadata:
+            labels:
+              app: "${{values.name}}-${{values.namespace}}"
           spec:
             containers:
               - image: rayproject/ray-ml:2.7.0

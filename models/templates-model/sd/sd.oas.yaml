@@ -1,0 +1,38 @@
+openapi: 3.0.3
+info:
+  title: Swagger Stable Diffusion - OpenAPI 3.0
+  description: |-
+    This is the OpenAPI spec for Stable Diffusion
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: "https://{{values.name}}-{{values.namespace}}.arcadeai.site"
+paths:
+  /serve/imagine:
+    get:
+      summary: Get the image generated from the prompt
+      parameters:
+        - name: prompt
+          in: query
+          description: Status values that need to be considered for filter
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful generation
+          content:
+            img/png:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Invalid status value
