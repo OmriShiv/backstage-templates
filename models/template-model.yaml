@@ -84,7 +84,7 @@ spec:
       action: github:repo:push
       input:
         defaultBranch: main
-        sourcePath: "${{parameters.name}}/"
+        sourcePath: "${{parameters.model}}/"
         repoUrl: ${{ parameters.repoUrl }}
     - id: wait
       name: Waiting for the repo to be ready
