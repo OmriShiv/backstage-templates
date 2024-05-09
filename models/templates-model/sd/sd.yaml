@@ -14,6 +14,7 @@ spec:
           namespace: "${{values.namespace}}"
       rayStartParams:
         dashboard-host: 0.0.0.0
+        num_cpus: '0'
       template:
         metadata:
           labels:
@@ -95,4 +96,14 @@ spec:
         runtime_env:
           working_dir: "https://github.com/ray-project/serve_config_examples/archive/d6acf9b99ef076a1848f506670e1290a11654ec2.zip"
           pip: ["diffusers==0.12.1"]
+        deployments:
+          - name: StableDiffusionV2
+            autoscaling_config:
+              metrics_interval_s: 0.2
+              min_replicas: ${{values.min_replicas}}
+              max_replicas: ${{values.max_replicas}}
+              look_back_period_s: 2
+              downscale_delay_s: 5
+              upscale_delay_s: 2
+              target_num_ongoing_requests_per_replica: 1
   serviceUnhealthySecondThreshold: 900
