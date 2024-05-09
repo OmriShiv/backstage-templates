@@ -3,6 +3,8 @@ kind: RayService
 metadata:
   name: "${{values.name}}-${{values.namespace}}"
   namespace: "${{values.namespace}}"
+  labels:
+    entity-id: "${{values.namespace}}-${{values.name}}"
 spec:
   deploymentUnhealthySecondThreshold: 300
   rayClusterConfig:
@@ -19,6 +21,7 @@ spec:
         metadata:
           labels:
             app: "${{values.name}}-${{values.namespace}}"
+            entity-id: "${{values.namespace}}-${{values.name}}"
         spec:
           containers:
             - env:
@@ -77,6 +80,7 @@ spec:
           metadata:
             labels:
               app: "${{values.name}}-${{values.namespace}}"
+              entity-id: "${{values.namespace}}-${{values.name}}"
           spec:
             containers:
               - image: public.ecr.aws/data-on-eks/ray-serve-inf2-llama2:latest

@@ -4,6 +4,8 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/rewrite-target: /$1
+  labels:
+    entity-id: "${{values.namespace}}-${{values.name}}"
   name: "${{values.name}}"
   namespace: "${{values.namespace}}"
 spec:

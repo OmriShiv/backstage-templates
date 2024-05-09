@@ -3,6 +3,8 @@ kind: RayService
 metadata:
   name: "${{values.name}}-${{values.namespace}}"
   namespace: "${{values.namespace}}"
+  labels:
+    entity-id: "${{values.namespace}}-${{values.name}}"
 spec:
   deploymentUnhealthySecondThreshold: 300
   rayClusterConfig:
@@ -18,6 +20,7 @@ spec:
       template:
         metadata:
           labels:
+            entity-id: "${{values.namespace}}-${{values.name}}"
             app: "${{values.name}}-${{values.namespace}}"
         spec:
           containers:
@@ -68,6 +71,7 @@ spec:
         template:
           metadata:
             labels:
+              entity-id: "${{values.namespace}}-${{values.name}}"
               app: "${{values.name}}-${{values.namespace}}"
           spec:
             containers:
