@@ -5,7 +5,6 @@ metadata:
   name: "${{values.name}}-${{values.namespace}}"
   description: llama model
   annotations:
-    backstage.io/kubernetes-id: "${{values.name}}-${{values.namespace}}"
     backstage.io/kubernetes-label-selector: 'entity-id=${{values.name}}-${{values.namespace}}'
     backstage.io/kubernetes-namespace: ${{values.namespace}}
     argocd/app-name: ${{values.name | dump}}

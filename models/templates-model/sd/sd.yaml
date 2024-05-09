@@ -5,7 +5,6 @@ metadata:
   namespace: "${{values.namespace}}"
   labels:
     app: "${{values.name}}-${{values.namespace}}"
-    backstage.io/kubernetes-id: "${{values.name}}-${{values.namespace}}"
     entity-id: "${{values.name}}-${{values.namespace}}"
 spec:
   deploymentUnhealthySecondThreshold: 300
@@ -23,7 +22,6 @@ spec:
         metadata:
           labels:
             app: "${{values.name}}-${{values.namespace}}"
-            backstage.io/kubernetes-id: "${{values.name}}-${{values.namespace}}"
             entity-id: "${{values.name}}-${{values.namespace}}"
         spec:
           containers:
@@ -75,7 +73,6 @@ spec:
           metadata:
             labels:
               app: "${{values.name}}-${{values.namespace}}"
-              backstage.io/kubernetes-id: "${{values.name}}-${{values.namespace}}"
               entity-id: "${{values.name}}-${{values.namespace}}"
           spec:
             containers:
