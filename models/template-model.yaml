@@ -90,7 +90,7 @@ spec:
       input:
         manifestPath: ${{parameters.model}}.yaml
         namespaced: true
-        clusterName: ${{ parameters.clusterName }}
+        clusterName: local
     - id: apply-ingress
       name: Creating Ingress
       action: cnoe:kubernetes:apply
