@@ -18,7 +18,7 @@ spec:
           namespace: "${{values.namespace}}"
       rayStartParams:
         dashboard-host: 0.0.0.0
-        num_cpus: '0'
+        num-cpus: '0'
       template:
         metadata:
           labels:
