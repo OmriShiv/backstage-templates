@@ -2,8 +2,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   labels:
-    backstage.io/kubernetes-id: "${{values.namespace}}-${{values.name}}"
-    entity-id: "${{values.namespace}}-${{values.name}}"
+    backstage.io/kubernetes-id: "${{values.name}}-${{values.namespace}}"
+    entity-id: "${{values.name}}-${{values.namespace}}"
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/rewrite-target: /$1

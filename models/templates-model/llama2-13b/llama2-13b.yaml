@@ -5,8 +5,8 @@ metadata:
   namespace: "${{values.namespace}}"
   labels:
     app: "${{values.name}}-${{values.namespace}}"
-    backstage.io/kubernetes-id: "${{values.namespace}}-${{values.name}}"
-    entity-id: "${{values.namespace}}-${{values.name}}"
+    backstage.io/kubernetes-id: "${{values.name}}-${{values.namespace}}"
+    entity-id: "${{values.name}}-${{values.namespace}}"
 spec:
   deploymentUnhealthySecondThreshold: 300
   rayClusterConfig:
@@ -23,8 +23,8 @@ spec:
         metadata:
           labels:
             app: "${{values.name}}-${{values.namespace}}"
-            backstage.io/kubernetes-id: "${{values.namespace}}-${{values.name}}"
-            entity-id: "${{values.namespace}}-${{values.name}}"
+            backstage.io/kubernetes-id: "${{values.name}}-${{values.namespace}}"
+            entity-id: "${{values.name}}-${{values.namespace}}"
         spec:
           containers:
             - env:
@@ -83,8 +83,8 @@ spec:
           metadata:
             labels:
               app: "${{values.name}}-${{values.namespace}}"
-              backstage.io/kubernetes-id: "${{values.namespace}}-${{values.name}}"
-              entity-id: "${{values.namespace}}-${{values.name}}"
+              backstage.io/kubernetes-id: "${{values.name}}-${{values.namespace}}"
+              entity-id: "${{values.name}}-${{values.namespace}}"
           spec:
             containers:
               - image: public.ecr.aws/data-on-eks/ray-serve-inf2-llama2:latest

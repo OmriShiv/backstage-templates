@@ -2,15 +2,15 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: "${{values.namespace | dump}}-${{values.name | dump}}"
+  name: "${{values.name}}-${{values.namespace}}"
   description: llama model
   annotations:
-    backstage.io/kubernetes-id: "${{values.namespace}}-${{values.name}}"
-    backstage.io/kubernetes-label-selector: 'entity-id=${{values.namespace}}-${{values.name}}'
+    backstage.io/kubernetes-id: "${{values.name}}-${{values.namespace}}"
+    backstage.io/kubernetes-label-selector: 'entity-id=${{values.name}}-${{values.namespace}}'
     backstage.io/kubernetes-namespace: ${{values.namespace}}
     argocd/app-name: ${{values.name | dump}}
   links:
-    - url:  'https://github.com/omrishiv-cnoe-test/${{values.namespace}}-${{values.name}}'
+    - url:  'https://github.com/omrishiv-cnoe-test/${{values.name}}-${{values.namespace}}'
       title: Repo URL
       icon: github
     - url:  'https://${{values.name}}-${{values.namespace}}.arcadeai.site/'

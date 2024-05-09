@@ -60,7 +60,7 @@ spec:
       name: Create Repository
       action: github:repo:create
       input:
-        repoUrl: 'github.com?owner=omrishiv-cnoe-test&repo=${{parameters.namespace}}-${{parameters.name}}'
+        repoUrl: 'github.com?owner=omrishiv-cnoe-test&repo=${{values.name}}-${{values.namespace}}'
     - id: fetch-base
       name: Fetch Base
       action: fetch:template
@@ -77,7 +77,7 @@ spec:
       action: github:repo:push
       input:
         defaultBranch: main
-        repoUrl: 'github.com?owner=omrishiv-cnoe-test&repo=${{parameters.namespace}}-${{parameters.name}}'
+        repoUrl: 'github.com?owner=omrishiv-cnoe-test&repo=${{values.name}}-${{values.namespace}}'
     - id: wait
       name: Waiting for the repo to be ready
       action: "roadiehq:utils:sleep"
