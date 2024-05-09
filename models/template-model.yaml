@@ -50,11 +50,6 @@ spec:
           description: Name of the role to give the administrative rights on the EKS cluster.
           default: Admin
           type: string
-        clusterName:
-          title: Cluster to run
-          description: The cluster to run this workflow in.
-          type: string
-          ui:field: KubernetesClusterPicker
   steps:
     - id: create-repo
       name: Create Repository
@@ -102,7 +97,7 @@ spec:
       input:
         manifestPath: ingress.yaml
         namespaced: true
-        clusterName: ${{ parameters.clusterName }}
+        clusterName: local
   output:
     links:
       - title: Open in catalog
