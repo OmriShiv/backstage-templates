@@ -18,6 +18,12 @@ metadata:
     - url:  'https://grafana.arcadeai.site/d/2LaqbJ0Zk/kubecost?orgId=1var-namespace=${{values.namespace}}&var-app=${{values.name}}-${{values.namespace}}'
       title: Cost Dashboard
       icon: dashboard
+    - url: 'https://grafana.arcadeai.site/d/rayServeDashboard/serve-dashboard?orgId=1&var-datasource=prometheus&var-Application=stable_diffusion'
+      title: Serving Dashboard
+      icon: dashboard
+    - url: 'https://grafana.arcadeai.site/d/rayServeDeploymentDashboard/serve-deployment-dashboard?orgId=1&var-datasource=prometheus&var-Application=stable_diffusion'
+      title: Serving Deployment Dashboard
+      icon: dashboard
 spec:
   owner: guest
   lifecycle: experimental
